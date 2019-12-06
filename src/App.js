@@ -16,7 +16,7 @@ class App extends Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: this.state.message })
       })
-      this.setState({ message: '' })
+      this.setState({ message: '', error: '' })
     } catch (err) {
       this.setState({ error: err.message })
     }
