@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    message: ''
+  }
+
+  sendSMS = e => {
+    e.preventDefault()
+    console.log(this.state.message)
+    this.setState({ message: '' })
+  }
+
+  render() {
+    return (
+      <div class="App">
+        <h1>Twilio, I'd love to chat!</h1>
+        <form onSubmit={this.sendSMS}>
+          <input type="text" value={this.state.message} onChange={e => this.setState({ message: e.target.value })} />
+          <input type="submit" value="Text me!" />
+        </form>
+      </div>
+    )
+  }
 }
 
 export default App;
