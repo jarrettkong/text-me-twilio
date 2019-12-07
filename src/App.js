@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
 
   state = {
     message: '',
-    error: ''
+    status: ''
   }
 
   sendSMS = async e => {
@@ -16,22 +16,23 @@ class App extends Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: this.state.message })
       })
-      this.setState({ message: '', error: '' })
+      this.setState({ message: '', status: 'Your message has been sent!' })
     } catch (err) {
-      this.setState({ error: err.message })
+      this.setState({ status: err.message })
     }
   }
 
   render() {
-    const { error } = this.state
+    const { status } = this.state
     return (
       <div className="App">
-        <h1>Twilio, I'd love to chat!</h1>
-        <form onSubmit={this.sendSMS}>
-          <input type="text" value={this.state.message} onChange={e => this.setState({ message: e.target.value })} />
-          <input type="submit" value="Text me!" />
+        <img class="headshot" src={require("./headshot.jpg")} alt="Jarrett Kong headshot" />
+        <h1 class="header">Twilio, I'd love to chat!</h1>
+        <form onSubmit={this.sendSMS} class="message-form">
+          <input className="message-input" type="text" value={this.state.message} placeholder="Enter your message here!" onChange={e => this.setState({ message: e.target.value })} />
+          <input className="submit-btn" type="submit" value="Text me!" />
+        <h3 className="status-text">{status && status}</h3>
         </form>
-        <h3>{error && error}</h3>
       </div>
     )
   }
